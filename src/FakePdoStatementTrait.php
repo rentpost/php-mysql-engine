@@ -2,6 +2,7 @@
 namespace Vimeo\MysqlEngine;
 
 use PDO;
+use ReturnTypeWillChange;
 
 trait FakePdoStatementTrait
 {

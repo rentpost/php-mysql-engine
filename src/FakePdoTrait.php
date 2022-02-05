@@ -1,6 +1,8 @@
 <?php
 namespace Vimeo\MysqlEngine;
 
+use ReturnTypeWillChange;
+
 trait FakePdoTrait
 {
     /**
@@ -63,7 +65,7 @@ trait FakePdoTrait
         $this->server = Server::getOrCreate('primary');
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function setAttribute($key, $value)
     {
         if ($key === \PDO::ATTR_EMULATE_PREPARES) {
@@ -113,7 +115,7 @@ trait FakePdoTrait
         $this->lastInsertId = $last_insert_id;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function lastInsertId($seqname = null) : string
     {
         if ($this->real) {
@@ -134,7 +136,7 @@ trait FakePdoTrait
         return $this->strict_mode;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function beginTransaction()
     {
         if (Server::hasSnapshot('transaction')) {
@@ -145,13 +147,13 @@ trait FakePdoTrait
         return true;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function commit()
     {
         return Server::deleteSnapshot('transaction');
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function rollback()
     {
         if (!Server::hasSnapshot('transaction')) {
@@ -162,7 +164,7 @@ trait FakePdoTrait
         return true;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function inTransaction()
     {
         return Server::hasSnapshot('transaction');
@@ -172,7 +174,7 @@ trait FakePdoTrait
      * @param string $statement
      * @return int|false
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function exec($statement)
     {
         $statement = trim($statement);
@@ -195,7 +197,7 @@ trait FakePdoTrait
      * @param int $parameter_type
      * @return string
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function quote($string, $parameter_type = \PDO::PARAM_STR)
     {
         // @see https://github.com/php/php-src/blob/php-8.0.2/ext/mysqlnd/mysqlnd_charset.c#L860-L878
