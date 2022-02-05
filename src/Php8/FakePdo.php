@@ -14,6 +14,7 @@ class FakePdo extends PDO implements FakePdoInterface
      * @param array $options
      * @return FakePdoStatement
      */
+    #[\ReturnTypeWillChange]
     public function prepare($statement, array $options = [])
     {
         return new FakePdoStatement($this, $statement, $this->real);
